@@ -44,7 +44,7 @@ pip install -r requirements.txt
 For gated models such as Llama, log in to Hugging Face:
 
 ```bash
-huggingface-cli login
+.venv/bin/hf auth login
 ```
 
 For 4-bit inference with `bitsandbytes`, use a CUDA GPU environment. If you are
