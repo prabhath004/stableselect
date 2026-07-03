@@ -41,6 +41,12 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+On Kaggle P100, use the P100-specific stack instead:
+
+```bash
+pip install -r requirements-kaggle-p100.txt
+```
+
 For gated models such as Llama, log in to Hugging Face:
 
 ```bash

@@ -86,6 +86,14 @@ def dtype_for_precision(precision: str) -> torch.dtype:
     raise ValueError(f"Unsupported precision: {precision}")
 
 
+def supports_bf16() -> bool:
+    return torch.cuda.is_available() and torch.cuda.is_bf16_supported()
+
+
+def quantization_compute_dtype() -> torch.dtype:
+    return torch.bfloat16 if supports_bf16() else torch.float16
+
+
 def load_model(model_id: str, precision: str, device_map: str) -> tuple[Any, Any]:
     tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     if tokenizer.pad_token_id is None and tokenizer.eos_token_id is not None:
@@ -104,9 +112,11 @@ def load_model(model_id: str, precision: str, device_map: str) -> tuple[Any, Any
                 "4-bit bitsandbytes inference needs a CUDA GPU. "
                 "Run bf16/fp16 locally or move this run to a CUDA machine."
             )
+        compute_dtype = quantization_compute_dtype()
+        print(f"using bitsandbytes 4-bit compute dtype: {compute_dtype}")
         model_kwargs["quantization_config"] = BitsAndBytesConfig(
             load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.bfloat16,
+            bnb_4bit_compute_dtype=compute_dtype,
             bnb_4bit_quant_type="nf4",
             bnb_4bit_use_double_quant=True,
         )
@@ -264,4 +274,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
