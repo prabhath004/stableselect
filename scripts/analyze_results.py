@@ -92,7 +92,28 @@ def main() -> None:
 
     baseline_key = (args.baseline_task, args.baseline_precision)
     if baseline_key not in by_setting:
-        raise SystemExit(f"Missing baseline setting: {baseline_key}")
+        fallback_key = None
+        for candidate_precision in ("fp16", "bf16", "4bit"):
+            candidate_key = (args.baseline_task, candidate_precision)
+            if candidate_key in by_setting:
+                fallback_key = candidate_key
+                break
+        if fallback_key is None and len(by_setting) == 1:
+            fallback_key = next(iter(by_setting))
+        if fallback_key is None:
+            available = ", ".join(
+                f"{task}/{precision}" for task, precision in sorted(by_setting)
+            )
+            raise SystemExit(
+                f"Missing baseline setting: {baseline_key}. "
+                f"Available settings: {available}"
+            )
+        print(
+            f"requested baseline {baseline_key} not found; "
+            f"using {fallback_key} instead"
+        )
+        baseline_key = fallback_key
+    baseline_task, baseline_precision = baseline_key
 
     setting_rank_rows: list[dict[str, Any]] = []
     setting_rank_maps: dict[tuple[str, str], dict[str, int]] = {}
@@ -130,8 +151,8 @@ def main() -> None:
         clean_rows = [
             row
             for row in model_rows
-            if row["task_group"] == args.baseline_task
-            and row["precision"] == args.baseline_precision
+            if row["task_group"] == baseline_task
+            and row["precision"] == baseline_precision
         ]
         if not clean_rows:
             continue
@@ -157,7 +178,7 @@ def main() -> None:
         }
         task_groups = sorted({row["task_group"] for row in model_rows})
         for task_group in task_groups:
-            fp_score = by_task_precision.get((task_group, args.baseline_precision))
+            fp_score = by_task_precision.get((task_group, baseline_precision))
             q4_score = by_task_precision.get((task_group, "4bit"))
             if fp_score is None or q4_score is None:
                 continue
@@ -165,7 +186,7 @@ def main() -> None:
                 {
                     "model_name": model_name,
                     "task_group": task_group,
-                    "baseline_precision": args.baseline_precision,
+                    "baseline_precision": baseline_precision,
                     "baseline_score": f"{fp_score:.6f}",
                     "quantized_precision": "4bit",
                     "quantized_score": f"{q4_score:.6f}",
@@ -187,4 +208,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
