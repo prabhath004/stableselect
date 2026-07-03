@@ -1,0 +1,30 @@
+models:
+  - name: qwen2_5_0_5b_instruct_smoke
+    model_id: Qwen/Qwen2.5-0.5B-Instruct
+    family: qwen
+    size: 0.5B
+    access: open
+    role: local pipeline smoke test only
+    exclude_from_paper: true
+
+  - name: qwen2_5_7b_instruct
+    model_id: Qwen/Qwen2.5-7B-Instruct
+    family: qwen
+    size: 7B
+    access: open
+    role: strong general baseline
+
+  - name: llama3_1_8b_instruct
+    model_id: meta-llama/Llama-3.1-8B-Instruct
+    family: llama
+    size: 8B
+    access: gated
+    role: common leaderboard/deployment baseline
+    note: Requires Hugging Face access approval and HF token.
+
+  - name: aya_expanse_8b
+    model_id: CohereLabs/aya-expanse-8b
+    family: aya
+    size: 8B
+    access: open
+    role: multilingual comparison model

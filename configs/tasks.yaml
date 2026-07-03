@@ -1,0 +1,17 @@
+local_qa_datasets:
+  english: data/pilot/english_qa.jsonl
+  multilingual: data/pilot/multilingual_qa.jsonl
+  code_switched: data/pilot/code_switched_qa.jsonl
+
+lm_eval_task_groups:
+  english:
+    - arc_easy
+  multilingual:
+    # Confirm exact task names with: lm_eval --tasks list
+    # Good candidates to check first: belebele, xcopa, xnli.
+    - belebele
+  code_switched:
+    # lm-eval may not include a ready-made code-switched task. Use the local
+    # custom QA runner or define a custom lm-eval YAML task.
+    []
+

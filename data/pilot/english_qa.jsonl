@@ -1,0 +1,11 @@
+{"id":"en_001","language":"en","task_group":"english","prompt":"What is the capital of France? Answer with one word.","answers":["Paris"]}
+{"id":"en_002","language":"en","task_group":"english","prompt":"What is 7 plus 5? Answer with only the number.","answers":["12"]}
+{"id":"en_003","language":"en","task_group":"english","prompt":"Which planet is known as the Red Planet? Answer with one word.","answers":["Mars"]}
+{"id":"en_004","language":"en","task_group":"english","prompt":"Who wrote the play Hamlet? Answer with the author's last name.","answers":["Shakespeare"]}
+{"id":"en_005","language":"en","task_group":"english","prompt":"What gas do plants absorb from the air for photosynthesis? Answer briefly.","answers":["carbon dioxide","CO2"]}
+{"id":"en_006","language":"en","task_group":"english","prompt":"What is the largest ocean on Earth? Answer briefly.","answers":["Pacific","Pacific Ocean"]}
+{"id":"en_007","language":"en","task_group":"english","prompt":"In computing, what does CPU stand for? Answer briefly.","answers":["central processing unit"]}
+{"id":"en_008","language":"en","task_group":"english","prompt":"What is the square root of 81? Answer with only the number.","answers":["9"]}
+{"id":"en_009","language":"en","task_group":"english","prompt":"What is the chemical symbol for gold? Answer with the symbol only.","answers":["Au"]}
+{"id":"en_010","language":"en","task_group":"english","prompt":"Which continent is Brazil in? Answer briefly.","answers":["South America"]}
+

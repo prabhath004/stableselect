@@ -1,0 +1,9 @@
+{"id":"cs_001","language":"te-en","task_group":"code_switched","prompt":"Bro, France capital enti? Answer one word only.","answers":["Paris"]}
+{"id":"cs_002","language":"hi-en","task_group":"code_switched","prompt":"Database indexing kya hota hai? One phrase answer: it helps make searches what?","answers":["faster","fast"]}
+{"id":"cs_003","language":"te-en","task_group":"code_switched","prompt":"7 plus 5 entha? Number only.","answers":["12"]}
+{"id":"cs_004","language":"hi-en","task_group":"code_switched","prompt":"Red Planet ka naam kya hai? One word.","answers":["Mars"]}
+{"id":"cs_005","language":"es-en","task_group":"code_switched","prompt":"La capital of France is what? One word.","answers":["Paris"]}
+{"id":"cs_006","language":"te-en","task_group":"code_switched","prompt":"CPU ante Central Processing what? Complete the last word only.","answers":["unit"]}
+{"id":"cs_007","language":"hi-en","task_group":"code_switched","prompt":"Gold ka chemical symbol kya hai? Symbol only.","answers":["Au"]}
+{"id":"cs_008","language":"es-en","task_group":"code_switched","prompt":"Brazil is in which continent? Responde briefly in English.","answers":["South America"]}
+

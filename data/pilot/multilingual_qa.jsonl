@@ -1,0 +1,9 @@
+{"id":"multi_001","language":"es","task_group":"multilingual","prompt":"¿Cuál es la capital de Francia? Responde con una palabra.","answers":["Paris","París"]}
+{"id":"multi_002","language":"hi","task_group":"multilingual","prompt":"भारत की राजधानी क्या है? केवल शहर का नाम लिखें।","answers":["Delhi","New Delhi","नई दिल्ली"]}
+{"id":"multi_003","language":"te","task_group":"multilingual","prompt":"ఫ్రాన్స్ రాజధాని ఏమిటి? ఒక పదంతో సమాధానం చెప్పండి.","answers":["Paris","పారిస్"]}
+{"id":"multi_004","language":"ar","task_group":"multilingual","prompt":"ما عاصمة فرنسا؟ أجب بكلمة واحدة.","answers":["Paris","باريس"]}
+{"id":"multi_005","language":"es","task_group":"multilingual","prompt":"¿Cuánto es 9 más 4? Responde solo con el número.","answers":["13"]}
+{"id":"multi_006","language":"hi","task_group":"multilingual","prompt":"लाल ग्रह किस ग्रह को कहा जाता है? एक शब्द में उत्तर दें।","answers":["Mars","मंगल"]}
+{"id":"multi_007","language":"te","task_group":"multilingual","prompt":"భూమిపై అతిపెద్ద మహాసముద్రం ఏది? చిన్నగా సమాధానం చెప్పండి.","answers":["Pacific","Pacific Ocean","పసిఫిక్"]}
+{"id":"multi_008","language":"ar","task_group":"multilingual","prompt":"ما الرمز الكيميائي للذهب؟ أجب بالرمز فقط.","answers":["Au"]}
+

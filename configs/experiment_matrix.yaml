@@ -1,0 +1,18 @@
+models:
+  - qwen2_5_7b_instruct
+  - llama3_1_8b_instruct
+  - aya_expanse_8b
+
+precisions:
+  - bf16
+  - 4bit
+
+task_groups:
+  - english
+  - multilingual
+  - code_switched
+
+max_examples_per_task: 20
+max_new_tokens: 32
+continue_on_error: true
+

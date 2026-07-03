@@ -1,0 +1,24 @@
+precisions:
+  bf16:
+    description: Clean baseline precision when the GPU supports bfloat16.
+    custom_runner_precision: bf16
+    lm_eval_model_args:
+      dtype: bfloat16
+      trust_remote_code: true
+
+  fp16:
+    description: Fallback baseline precision when bfloat16 is not available.
+    custom_runner_precision: fp16
+    lm_eval_model_args:
+      dtype: float16
+      trust_remote_code: true
+
+  4bit:
+    description: BitsAndBytes 4-bit deployment-style quantized inference.
+    custom_runner_precision: 4bit
+    lm_eval_model_args:
+      dtype: bfloat16
+      trust_remote_code: true
+      load_in_4bit: true
+      bnb_4bit_compute_dtype: bfloat16
+
