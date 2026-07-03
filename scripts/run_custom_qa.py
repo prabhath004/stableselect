@@ -87,7 +87,10 @@ def dtype_for_precision(precision: str) -> torch.dtype:
 
 
 def supports_bf16() -> bool:
-    return torch.cuda.is_available() and torch.cuda.is_bf16_supported()
+    if not torch.cuda.is_available():
+        return False
+    major, _minor = torch.cuda.get_device_capability()
+    return major >= 8 and torch.cuda.is_bf16_supported()
 
 
 def quantization_compute_dtype() -> torch.dtype:
