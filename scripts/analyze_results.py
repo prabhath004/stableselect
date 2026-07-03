@@ -24,15 +24,23 @@ def parse_args() -> argparse.Namespace:
 
 
 def read_metric_rows(input_dir: Path) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
+    latest_rows_by_setting: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     for path in sorted(input_dir.glob("*.csv")):
         with path.open("r", encoding="utf-8") as handle:
             for row in csv.DictReader(handle):
                 if row["language"] == "all":
                     row["score"] = float(row["score"])
                     row["num_examples"] = int(row["num_examples"])
-                    rows.append(row)
-    return rows
+                    key = (
+                        row["model_name"],
+                        row["precision"],
+                        row["task_group"],
+                        row["language"],
+                    )
+                    existing = latest_rows_by_setting.get(key)
+                    if existing is None or row["timestamp"] > existing["timestamp"]:
+                        latest_rows_by_setting[key] = row
+    return list(latest_rows_by_setting.values())
 
 
 def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
