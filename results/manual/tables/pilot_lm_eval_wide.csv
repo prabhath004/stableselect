@@ -1,0 +1,5 @@
+task_label,precision,metric,examples,qwen_score,aya_score,winner,qwen_minus_aya
+ARC-Easy English,4bit,acc_norm,100,0.800000,0.770000,Qwen,0.030000
+Belebele Arabic,4bit,acc_norm,50,0.760000,0.760000,Tie,0.000000
+Belebele Hindi,4bit,acc_norm,50,0.580000,0.620000,Aya,-0.040000
+Belebele Spanish,4bit,acc_norm,50,0.900000,0.720000,Qwen,0.180000

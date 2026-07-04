@@ -1,0 +1,9 @@
+task_label,precision,metric,rank,model_name,model_label,score
+ARC-Easy English,4bit,acc_norm,1,qwen2_5_7b_instruct,Qwen2.5-7B-Instruct,0.800000
+ARC-Easy English,4bit,acc_norm,2,aya_expanse_8b,Aya-Expanse-8B,0.770000
+Belebele Arabic,4bit,acc_norm,1,aya_expanse_8b,Aya-Expanse-8B,0.760000
+Belebele Arabic,4bit,acc_norm,1,qwen2_5_7b_instruct,Qwen2.5-7B-Instruct,0.760000
+Belebele Hindi,4bit,acc_norm,1,aya_expanse_8b,Aya-Expanse-8B,0.620000
+Belebele Hindi,4bit,acc_norm,2,qwen2_5_7b_instruct,Qwen2.5-7B-Instruct,0.580000
+Belebele Spanish,4bit,acc_norm,1,qwen2_5_7b_instruct,Qwen2.5-7B-Instruct,0.900000
+Belebele Spanish,4bit,acc_norm,2,aya_expanse_8b,Aya-Expanse-8B,0.720000

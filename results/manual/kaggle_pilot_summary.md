@@ -26,8 +26,22 @@ ahead on ARC-Easy normalized accuracy and Spanish Belebele, Aya was ahead on
 ARC-Easy raw accuracy and Hindi Belebele, and the models tied on Arabic
 Belebele.
 
+Using normalized accuracy as the primary metric, Qwen has the higher average
+score across the four pilot tasks (0.7600 vs. 0.7175), but Aya has the higher
+deployment stability score (0.5675 vs. 0.5400) because Qwen drops more sharply
+from the English baseline to Hindi.
+
 This is pilot evidence only. It should be rerun with saved result files, larger
 subsets, and a third model before being used as paper evidence.
+
+## Extracted Tables
+
+The recovered JSON files were converted into CSV tables:
+
+- `results/manual/tables/pilot_lm_eval_scores.csv`
+- `results/manual/tables/pilot_lm_eval_wide.csv`
+- `results/manual/tables/pilot_lm_eval_ranks.csv`
+- `results/manual/tables/pilot_lm_eval_stability.csv`
 
 ## Files Note
 
