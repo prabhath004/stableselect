@@ -17,8 +17,7 @@ precisions:
     description: BitsAndBytes 4-bit deployment-style quantized inference.
     custom_runner_precision: 4bit
     lm_eval_model_args:
-      dtype: bfloat16
+      dtype: float16
       trust_remote_code: true
       load_in_4bit: true
-      bnb_4bit_compute_dtype: bfloat16
-
+      bnb_4bit_compute_dtype: float16
