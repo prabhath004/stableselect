@@ -16,13 +16,21 @@ from typing import Any
 MODEL_LABELS = {
     "qwen2_5_7b_instruct": "Qwen2.5-7B-Instruct",
     "aya_expanse_8b": "Aya-Expanse-8B",
+    "llama3_1_8b_instruct": "Llama-3.1-8B-Instruct",
 }
 
 TASK_LABELS = {
     "arc_easy": "ARC-Easy English",
+    "hellaswag": "HellaSwag English",
     "belebele_hin_Deva": "Belebele Hindi",
     "belebele_arb_Arab": "Belebele Arabic",
     "belebele_spa_Latn": "Belebele Spanish",
+}
+
+MODEL_SCORE_COLUMNS = {
+    "qwen2_5_7b_instruct": "qwen_score",
+    "aya_expanse_8b": "aya_score",
+    "llama3_1_8b_instruct": "llama_score",
 }
 
 
@@ -45,6 +53,11 @@ def parse_args() -> argparse.Namespace:
         default="acc_norm",
         choices=["acc", "acc_norm"],
         help="Primary metric for ranking and stability tables.",
+    )
+    parser.add_argument(
+        "--name-prefix",
+        default="pilot_lm_eval",
+        help="Prefix for output CSV filenames.",
     )
     return parser.parse_args()
 
@@ -80,6 +93,8 @@ def infer_model(source_name: str) -> str:
             return "qwen2_5_7b_instruct"
         if part.startswith("aya_expanse_8b"):
             return "aya_expanse_8b"
+        if part.startswith("llama3_1_8b_instruct"):
+            return "llama3_1_8b_instruct"
     raise ValueError(f"Could not infer model from path: {source_name}")
 
 
@@ -177,32 +192,43 @@ def wide_rows(rows: list[dict[str, Any]], metric: str) -> list[dict[str, Any]]:
         if row["metric"] == metric:
             groups[(row["task_name"], row["task_label"], row["precision"])][row["model_name"]] = row
 
+    model_names = sorted(
+        {row["model_name"] for row in rows if row["metric"] == metric},
+        key=lambda name: MODEL_LABELS.get(name, name),
+    )
     out: list[dict[str, Any]] = []
     for (_task_name, task_label, precision), by_model in sorted(groups.items()):
-        qwen = by_model.get("qwen2_5_7b_instruct")
-        aya = by_model.get("aya_expanse_8b")
-        if qwen is None or aya is None:
+        if not by_model:
             continue
-        qwen_score = qwen["score"]
-        aya_score = aya["score"]
-        if qwen_score > aya_score:
-            winner = "Qwen"
-        elif aya_score > qwen_score:
-            winner = "Aya"
-        else:
-            winner = "Tie"
-        out.append(
-            {
-                "task_label": task_label,
-                "precision": precision,
-                "metric": metric,
-                "examples": qwen["examples"] or aya["examples"],
-                "qwen_score": f"{qwen_score:.6f}",
-                "aya_score": f"{aya_score:.6f}",
-                "winner": winner,
-                "qwen_minus_aya": f"{qwen_score - aya_score:.6f}",
-            }
-        )
+
+        scores = {
+            model_name: by_model[model_name]["score"]
+            for model_name in model_names
+            if model_name in by_model
+        }
+        best_score = max(scores.values())
+        winners = [
+            MODEL_LABELS.get(model_name, model_name)
+            for model_name, score in scores.items()
+            if abs(score - best_score) <= 1e-12
+        ]
+        sorted_scores = sorted(scores.values(), reverse=True)
+        margin = sorted_scores[0] - sorted_scores[1] if len(sorted_scores) > 1 else 0.0
+
+        row = {
+            "task_label": task_label,
+            "precision": precision,
+            "metric": metric,
+            "examples": next(iter(by_model.values()))["examples"],
+        }
+        for model_name in model_names:
+            column = MODEL_SCORE_COLUMNS.get(model_name, f"{model_name}_score")
+            score = scores.get(model_name)
+            row[column] = "" if score is None else f"{score:.6f}"
+        row["winner"] = "Tie" if len(winners) > 1 else winners[0]
+        row["winning_models"] = "; ".join(winners)
+        row["winner_margin"] = f"{margin:.6f}"
+        out.append(row)
     return out
 
 
@@ -240,11 +266,11 @@ def main() -> None:
     if not results:
         raise SystemExit(f"No lm-eval result JSON files found in {args.input}")
     rows = read_rows(results)
-    write_csv(args.output_dir / "pilot_lm_eval_scores.csv", score_rows(rows))
-    write_csv(args.output_dir / "pilot_lm_eval_ranks.csv", rank_rows(rows, args.metric))
-    write_csv(args.output_dir / "pilot_lm_eval_wide.csv", wide_rows(rows, args.metric))
+    write_csv(args.output_dir / f"{args.name_prefix}_scores.csv", score_rows(rows))
+    write_csv(args.output_dir / f"{args.name_prefix}_ranks.csv", rank_rows(rows, args.metric))
+    write_csv(args.output_dir / f"{args.name_prefix}_wide.csv", wide_rows(rows, args.metric))
     write_csv(
-        args.output_dir / "pilot_lm_eval_stability.csv",
+        args.output_dir / f"{args.name_prefix}_stability.csv",
         stability_rows(rows, args.metric),
     )
     print(f"read {len(results)} result files")

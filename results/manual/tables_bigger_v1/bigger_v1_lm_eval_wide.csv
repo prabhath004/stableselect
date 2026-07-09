@@ -1,0 +1,6 @@
+task_label,precision,metric,examples,aya_score,llama_score,qwen_score,winner,winning_models,winner_margin
+ARC-Easy English,4bit,acc_norm,500,0.768000,0.752000,0.774000,Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,0.006000
+Belebele Arabic,4bit,acc_norm,200,0.700000,0.705000,0.810000,Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,0.105000
+Belebele Hindi,4bit,acc_norm,200,0.600000,0.585000,0.630000,Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,0.030000
+Belebele Spanish,4bit,acc_norm,200,0.730000,0.780000,0.865000,Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,0.085000
+HellaSwag English,4bit,acc_norm,500,0.678000,0.678000,0.672000,Tie,Aya-Expanse-8B; Llama-3.1-8B-Instruct,0.000000

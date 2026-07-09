@@ -1,0 +1,8 @@
+date_utc=2026-07-09T20:31:39Z
+gpu=Kaggle P100 expected
+precision=4bit bitsandbytes float16 compute
+english_limit=500
+belebele_limit=200
+run_llama=1
+english_tasks=arc_easy hellaswag
+belebele_tasks=belebele_hin_Deva belebele_arb_Arab belebele_spa_Latn

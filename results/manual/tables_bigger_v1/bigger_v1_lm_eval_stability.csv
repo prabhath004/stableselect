@@ -1,0 +1,4 @@
+model_name,model_label,metric,baseline_task,baseline_score,average_score,worst_group_drop,deployment_stability_score
+aya_expanse_8b,Aya-Expanse-8B,acc_norm,ARC-Easy English,0.768000,0.695200,0.168000,0.527200
+llama3_1_8b_instruct,Llama-3.1-8B-Instruct,acc_norm,ARC-Easy English,0.752000,0.700000,0.167000,0.533000
+qwen2_5_7b_instruct,Qwen2.5-7B-Instruct,acc_norm,ARC-Easy English,0.774000,0.750200,0.144000,0.606200
